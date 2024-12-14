@@ -1,3 +1,5 @@
+# install cuda from deb file
+
 nvcc --version
 
 # compile cuda

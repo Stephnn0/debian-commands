@@ -20,10 +20,45 @@ sudo cp /kernel /boot/kernel
 
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
-POSSIBLE BUGS:
+# --------------------------- POSSIBLE BUGS:
 
 blkid
 update-initramfs -c -k <kernel_version>
 fdisk -l
 
 
+
+# --------------------------- grub 
+
+# find root partition at /
+lsblk
+
+# ls in grub cli
+ls ->  (hd0) (hd0,msdos1) (hd0,msdos2)
+
+ls (hd0,msdos1)/
+
+sudo nano /etc/grub.d/40_custom
+
+menuentry 'My New Kernel' {
+    set root=(hd0,msdos1)     # Adjust as per your /boot partition
+    linux /boot/vmlinuz-mynewkernel root=/dev/sda2 ro
+    initrd /boot/initrd.img-mynewkernel
+}
+
+sudo update-grub
+
+# ------------------------------- activate grub cli
+# sudo nano /etc/default/grub
+
+#from:
+GRUB_TIMEOUT=0
+#to:
+GRUB_TIMEOUT=10
+GRUB_TIMEOUT_STYLE=menu
+
+sudo update-grub
+
+GRUB_CMDLINE_LINUX_DEFAULT="root=/dev/sdaX ro"
+
+update-grub
