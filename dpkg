@@ -1,0 +1,3 @@
+dpkg -i 'lib.deb'
+
+dpkg -l | grep 'name'

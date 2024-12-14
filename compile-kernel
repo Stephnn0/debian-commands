@@ -1,0 +1,29 @@
+wget 'path-to-kernel-source-code-tar'
+
+tar xvf 'kerne-source.tar.xz'
+
+# create .config file
+
+make menuconfig -j8
+
+# compile
+
+make -j8 && sudo make modules_install -j8
+
+# search kernel in arch directory
+
+# copy kernel into /boot
+
+sudo cp /kernel /boot/kernel
+
+# configure bootloader
+
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+POSSIBLE BUGS:
+
+blkid
+update-initramfs -c -k <kernel_version>
+fdisk -l
+
+

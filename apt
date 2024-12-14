@@ -1,0 +1,14 @@
+apt update
+
+apt upgrade
+
+apt purge
+
+apt -list | grep 'package-name'
+
+sudo apt remove package-name
+
+apt search package-name
+
+sudo apt clean
+

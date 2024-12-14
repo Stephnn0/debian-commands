@@ -1,0 +1,6 @@
+- owasp.org  -> known vulnerabilities db
+
+- opsec
+
+- hackerone -> bounty programs 
+- hackthebox

@@ -1,0 +1,4 @@
+nvidia-smi
+
+nvidia-settings
+
