@@ -1,4 +1,4 @@
-kubeadm init --pod-network-cidr 10.10.0.0/16 --kubernetes-version 1.26.1 --node-name k8s-control
+kubeadm init --pod-network-cidr 10.10.0.0/16 --kubernetes-version 1.26.0 --node-name k8s-control
 
 # add Calico 3.25 CNI 
 ### https://docs.tigera.io/calico/3.25/getting-started/kubernetes/quickstart

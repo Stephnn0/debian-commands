@@ -7,6 +7,10 @@ apt upgrade
 
 # CHANGE TERMINAL HOST NAME
 systemctl set-hostname master
+# or
+hostnamectl
+hostnamectl set-hostname master
+
 exec bash
 
 # ADD TERMINAL HOST NAME TO HOSTS
@@ -16,12 +20,17 @@ printf "\n10.0.2.15\n" >> /etc/hosts
 swapoff -a
 free -m
 
+# diable completely /etc/fstab -> comment everything related to SWAP
+# verify lsblk
+
 # IP BRIDGE FOR NODES NETWORK COMMUNICATION
 
 printf "overlay\nbr_netfilter\n" >> /etc/modules-load.d/k8s.conf
 
 modprobe overlay
 modprobe br_netfilter
+
+# VERIFY: lsmod | grep overlay 
 
 # SETUP SYSCTL PARAMS 
 
