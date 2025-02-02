@@ -1,0 +1,73 @@
+# docker login
+
+# docker tag simple-node-app your-dockerhub-username/simple-node-app:latest
+
+# docker push your-dockerhub-username/simple-node-app:latest
+
+# ============================================
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-api
+spec:
+  containers:
+  - name: healthy-api
+    image: danluck001/kube-pod:latest
+    ports:
+    - containerPort: 3000
+
+
+# =========================================
+# kubectl apply -f node-api-pod.yaml
+# kubectl get pods
+#
+#
+# =========================================
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-api-service
+spec:
+  selector:
+    app: node-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer
+
+
+# ==========================================
+
+kubectl apply -f node-api-service.yaml
+
+kubectl get svc
+
+
+kubectl port-forward svc/node-api-service 8080:80
+
+
+
+kubectl create secret docker-registry my-docker-secret \
+  --docker-server=https://index.docker.io/v1/ \
+  --docker-username=<your-username> \
+  --docker-password=<your-password> \
+  --docker-email=<your-email>
+
+
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-api
+spec:
+  containers:
+  - name: healthy-api
+    image: danluck001/kube-pod:latest
+    ports:
+    - containerPort: 3000
+  imagePullSecrets:
+  - name: my-docker-secret

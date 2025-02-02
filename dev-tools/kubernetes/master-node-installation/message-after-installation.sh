@@ -80,3 +80,9 @@ Then you can join any number of worker nodes by running the following on each as
 
 kubeadm join 192.168.168.52:6443 --token tggvy5.tjbhijiyqnsz2hat \
 	--discovery-token-ca-cert-hash sha256:d851cf462b41c38ef0354fca6bb745c491231e08eab1c5581695ee4f4abbba98
+
+
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --kubernetes-version 1.32.0 --node-name k8s-control
+
+kubeadm join 192.168.168.52:6443 --token z2n4w1.kdf8s9pc48hy05ha \
+	--discovery-token-ca-cert-hash sha256:3f6dd50feb45914fd3ede33188d7081bbc8f11d5d406373d95638399dab8d9e2

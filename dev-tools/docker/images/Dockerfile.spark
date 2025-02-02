@@ -1,0 +1,28 @@
+# Use OpenJDK 17 as a base image
+FROM openjdk:17-slim
+
+# Set environment variables for Spark and Hadoop
+ENV SPARK_VERSION=3.5.0
+ENV HADOOP_VERSION=3.3
+
+# Install curl for downloading Spark and other dependencies
+RUN apt update && apt install -y \
+    curl \
+    vim \
+    && apt-get clean
+
+# Download and install Spark (with Hadoop 3.3 support)
+RUN curl -O https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
+    && tar xvf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
+    && mv spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} /opt/spark \
+    && rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz
+
+# Set environment variables for Spark
+ENV SPARK_HOME=/opt/spark
+ENV PATH=$SPARK_HOME/bin:$PATH
+
+# Expose the Spark Web UI port
+EXPOSE 4040
+
+# Default command to run Spark shell
+CMD ["spark-shell"]

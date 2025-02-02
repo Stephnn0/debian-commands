@@ -6,9 +6,19 @@ mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
+kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+
+
 # =========================================================
 
+kubectl logs pod/kube-scheduler-k8s-control -n kube-system
+
 kubectl get pods -A
+
+kubectl scale deployment go-api --replicas=1 -n default
+
+
+kubectl get all -A
 
 NAMESPACE     NAME                                  READY   STATUS    RESTARTS   AGE
 kube-system   coredns-668d6bf9bc-crbdc              0/1     Pending   0          47h
